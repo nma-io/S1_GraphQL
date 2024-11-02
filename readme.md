@@ -28,6 +28,24 @@ Useful files but not used by the code:
 
 > schema.response is the json response at the time I started working with this - might be helpful if you just need to do a quick lookup.
 
+Version 2024.0.1 Snyk output:
+
+```
+
+Testing S1_GraphQL ...
+
+
+✔ Test completed
+
+Organization:      nalbright
+Test type:         Static code analysis
+Project path:      code/S1_GraphQL
+
+Summary:
+
+✔ Awesome! No issues were found.
+
+```
 
 
 Original Author: Nicholas Albright (@nma-io)

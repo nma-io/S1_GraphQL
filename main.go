@@ -22,7 +22,7 @@ var apiKey string
 func main() {
 
 	fmt.Printf("SentinelOne GraphQL API Client v%s - %s\n", version, author)
-	productFlag := flag.String("product", "EDR", "Specify detection product: EDR, Identity, STAR")
+	productFlag := flag.String("product", "EDR", "Specify detection product: EDR, Identity, STAR or ALL")
 	// Fix the lookback flag to use start/end date instead. This is just temporay.
 	lookbackFlag := flag.Int("t", 2, "Look back in days - this is for alerts with missing comments only")
 	closeAlerts := flag.Bool("c", false, "Close alerts")

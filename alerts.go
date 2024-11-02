@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 )
 
 // Process results to print out relevant alert details
@@ -30,43 +31,58 @@ func processResults(results []AlertData) (rstring string) {
 	return rstring
 }
 
-// Function to list alerts without comments by product, filtering on date and detection product only
+// Function to list alerts without comments by product - allowing for ALL as a product filter.
 func listAlertsWithoutComments(apiKey string, lookbackDays int) {
-	// Calculate the start timestamp based on lookbackDays
 	startTimestamp := calculateStartTimestamp(lookbackDays)
 
-	// Build the query with the dynamically calculated start timestamp
-	// Todo - we should probably add an end timestamp as well
-	query := fmt.Sprintf(`{
+	// Define the product filter, setting it to all products if 'ALL' is selected
+	var productFilter string
+	if "ALL" == strings.ToUpper(product) {
+		productFilter = `["EDR", "STAR", "IDENTITY"]`
+	} else {
+		productFilter = fmt.Sprintf(`["%s"]`, product)
+	}
+
+	// GraphQL query without 'after' but with 'endCursor' for pagination
+	queryTemplate := `{
 		alerts(filters: [
-				{fieldId: "detectionProduct", stringIn: { values: ["%s"] }},
+				{fieldId: "detectionProduct", stringIn: { values: %s }},
 				{fieldId: "detectedAt", dateTimeRange: { start: %d, startInclusive: true, end: null }}
 			],
 			sort: { by: "detectedAt", order: DESC },
-			first: 100) {
+			first: 1000) {
 			edges { node { id name result status detectedAt noteExists severity externalId analystVerdict classification asset { name } process { cmdLine } }}
 			pageInfo { endCursor hasNextPage }
 		}
-	}`, product, startTimestamp)
+	}`
 
+	// Initialize results array and pagination variables
 	var results []AlertData
 	hasNextPage, endCursor := true, ""
 
 	for hasNextPage {
+		query := fmt.Sprintf(queryTemplate, productFilter, startTimestamp)
+
 		resp, err := sendGraphQLRequest(apiEndpoint, apiKey, query, endCursor)
 		if err != nil {
 			log.Fatalf("Failed to fetch alerts: %v", err)
 		}
+
 		results = append(results, resp.Data.Alerts.Edges...)
 		endCursor, hasNextPage = resp.Data.Alerts.PageInfo.EndCursor, resp.Data.Alerts.PageInfo.HasNextPage
+
+		// Check to prevent infinite loop
+		if endCursor == "" && hasNextPage {
+			log.Fatal("Error: Pagination endCursor is empty, but hasNextPage is still true. Exiting to avoid infinite loop.")
+		}
 	}
 
+	// Process and display the results
 	fmt.Printf("Fetched %d alerts.\n", len(results))
 	data := processResults(results)
 	if len(data) == 0 {
 		fmt.Println("No alerts found without comments.")
 	} else {
 		fmt.Println(data)
-
 	}
 }

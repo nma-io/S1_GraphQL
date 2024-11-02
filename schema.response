@@ -1,0 +1,396 @@
+{
+  "data": {
+    "__schema": {
+      "queryType": {
+        "fields": [
+          {
+            "name": "alerts",
+            "description": "Returns list of unified alerts",
+            "args": [
+              {
+                "name": "last",
+                "description": "Number of last alerts  to return when paging backward.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": "Cursor before which to get preceding page.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "scope",
+                "description": "Scope selection.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ScopeSelectorInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": "Cursor after which to get following page.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "sort",
+                "description": "Sort to apply. If both 'sort' and 'sorts' are specified, 'sorts' takes the precedence in case it is not empty.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "SortInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters to apply",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "name": null,
+                    "kind": "NON_NULL"
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "sorts",
+                "description": "Sorts to apply. If both 'sort' and 'sorts' are specified, this one takes the precedence in case it is not empty.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "name": null,
+                    "kind": "NON_NULL"
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "first",
+                "description": "Number of first alerts to return when paging forward.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "UnifiedAlertConnection",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alertNotes",
+            "description": "Returns list of alert notes",
+            "args": [
+              {
+                "name": "alertId",
+                "description": "Alert ID to filter by.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": "ID",
+                    "kind": "SCALAR"
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "AlertNotesListResponse",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alert",
+            "description": "Returns alert by specific id",
+            "args": [
+              {
+                "name": "id",
+                "description": "id of Alert",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": "ID",
+                    "kind": "SCALAR"
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "UnifiedAlertDetail",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alertColumnMetadata",
+            "description": "Returns list column metadata related to Alert",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": null,
+                "kind": "LIST"
+              }
+            }
+          },
+          {
+            "name": "alertHistory",
+            "description": "Returns alert history for specific alert ID.",
+            "args": [
+              {
+                "name": "filter",
+                "description": "Filters to apply.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "AlertHistoryFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": "Number of last alert history items to return when paging backward.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": "Cursor before which to get preceding page.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": "Cursor after which to get following page.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "alertId",
+                "description": "ID of the alert.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": "ID",
+                    "kind": "SCALAR"
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "first",
+                "description": "Number of first alert history items to return when paging forward.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "AlertHistoryItemConnection",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alertFiltersCount",
+            "description": "Returns filters count for alerts.",
+            "args": [
+              {
+                "name": "scope",
+                "description": "Scope selection.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ScopeSelectorInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "filters",
+                "description": "Filter to apply.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "name": "FilterInput",
+                    "kind": "INPUT_OBJECT"
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "fieldIds",
+                "description": "List of columns for which to return filter counts.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": null,
+                    "kind": "LIST"
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "AlertFiltersCountResponse",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alertAvailableActions",
+            "description": "Returns list of available alert actions.",
+            "args": [
+              {
+                "name": "filter",
+                "description": "Filter to apply. If `null` returns available actions for all alerts.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "OrFilterSelectionInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "actionType",
+                "description": "The type of actions to return. Usable if interested only in the subset of available actions.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ActionType",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "scope",
+                "description": "Scope selection.",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ScopeSelectorInput",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "name": "AvailableActionsResponse",
+                "kind": "OBJECT"
+              }
+            }
+          },
+          {
+            "name": "alertMitigationActionResults",
+            "description": "Returns list of mitigation action results for the specified alert.",
+            "args": [
+              {
+                "name": "alertId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": "ID",
+                    "kind": "SCALAR"
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "MitigationActionResultListResponse",
+              "ofType": null
+            }
+          },
+          {
+            "name": "node",
+            "description": "Fetches an object given its ID",
+            "args": [
+              {
+                "name": "id",
+                "description": "The ID of an object",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "name": "ID",
+                    "kind": "SCALAR"
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          }
+        ]
+      }
+    }
+  }
+}

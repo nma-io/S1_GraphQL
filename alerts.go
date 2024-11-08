@@ -105,7 +105,7 @@ func listAlertsWithoutComments(apiKey string, lookbackMinutes int) {
 		// Handle Webhook notifications
 		switch {
 		case strings.Contains(webHookUrl, "office.com"):
-			data = strings.Replace(data, '\n', "  \n", -1) //  Replace \n with double space + \n for markdown in teams
+			data = strings.Replace(data, "\n", "  \n", -1) //  Replace \n with double space + \n for markdown in teams
 			teams.Send(webHookUrl, data)
 		case strings.Contains(webHookUrl, "chat.googleapis.com"):
 			gchat.Send(webHookUrl, data)

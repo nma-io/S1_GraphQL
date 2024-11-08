@@ -15,8 +15,8 @@ func parseDetectedAt(detectedAtStr string) (time.Time, error) {
 	return time.Parse(time.RFC3339, detectedAtStr)
 }
 
-func calculateStartTimestamp(daysAgo int) int64 {
-	return time.Now().AddDate(0, 0, -daysAgo).UnixMilli()
+func calculateStartTimestamp(minutesAgo int) int64 {
+	return time.Now().Add(-time.Duration(minutesAgo) * time.Minute).UnixMilli()
 }
 
 func parseDateToEpoch(dateStr string) int64 {

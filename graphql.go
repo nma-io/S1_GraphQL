@@ -27,6 +27,9 @@ type AlertData struct {
 		Process struct {
 			CmdLine string `json:"cmdLine"`
 		} `json:"process"`
+		DetectionSource struct {
+			Product string `json:"product"`
+		} `json:"detectionSource"`
 	} `json:"node"`
 }
 
@@ -44,7 +47,7 @@ type PageInfo struct {
 	HasNextPage bool   `json:"hasNextPage"`
 }
 
-func sendGraphQLRequest(endpoint, apiKey, query, cursor string) (*GraphQLResponse, error) {
+func sendGraphQLRequest(endpoint, apiKey, query string) (*GraphQLResponse, error) {
 	payload := map[string]interface{}{
 		"query": query,
 	}
@@ -73,7 +76,7 @@ func sendGraphQLRequest(endpoint, apiKey, query, cursor string) (*GraphQLRespons
 	}
 
 	// Debug
-	// log.Printf("Response: %s", body)
+	// fmt.Printf("Response: %s", body)
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("API request failed with status: %s, body: %s", resp.Status, body)

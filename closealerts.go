@@ -50,7 +50,7 @@ func fetchAlertIds(apiKey string, lookbackDays int, startDate, endDate string) [
 		}
 	}`
 
-	resp, err := sendGraphQLRequest(apiEndpoint, apiKey, query, "")
+	resp, err := sendGraphQLRequest(apiEndpoint, apiKey, query)
 	if err != nil {
 		log.Fatalf("Failed to fetch alert IDs: %v", err)
 	}

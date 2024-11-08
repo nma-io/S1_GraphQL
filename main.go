@@ -18,13 +18,14 @@ import (
 var scopeId string
 var product string
 var apiKey string
+var webHookUrl string
 
 func main() {
 
 	fmt.Printf("SentinelOne GraphQL API Client v%s - %s\n", version, author)
 	productFlag := flag.String("product", "EDR", "Specify detection product: EDR, Identity, STAR or ALL")
 	// Fix the lookback flag to use start/end date instead. This is just temporay.
-	lookbackFlag := flag.Int("t", 2, "Look back in days - this is for alerts with missing comments only")
+	lookbackFlag := flag.Int("t", 15, "Look back in minutes - this is for alerts with missing comments only")
 	closeAlerts := flag.Bool("c", false, "Close alerts")
 	missingComments := flag.Bool("missing-comments", false, "Show alerts without comments")
 	message := flag.String("m", "Closed by S1_GraphQL", "Closure message")
@@ -33,10 +34,13 @@ func main() {
 	scopeFlag := flag.String("scope", "", "Scope ID for the account")
 	startDate := flag.String("start", "", "Start date for alert detection range (YYYY-MM-DD)")
 	endDate := flag.String("end", "", "End date for alert detection range (YYYY-MM-DD)")
+	webHook := flag.String("webhook", "", "Webhook URL for alert notifications")
 
 	flag.Parse()
+
 	product = *productFlag
 	scopeId = *scopeFlag
+	webHookUrl = *webHook
 
 	apiKey = os.Getenv("S1_TOKEN")
 	if apiKey == "" {
